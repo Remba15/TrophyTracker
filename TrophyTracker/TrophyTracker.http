@@ -1,0 +1,6 @@
+@TrophyTracker_HostAddress = http://localhost:5159
+
+GET {{TrophyTracker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
