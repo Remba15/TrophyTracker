@@ -16,47 +16,47 @@ namespace TrophyTracker.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult Get()
-        {
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
 
-            return Ok(_context.Games);
+        //    return Ok(_context.Games);
 
-        }
+        //}
 
-        [HttpGet]
-        [Route("{id:int}")]
-        public IActionResult GetById(int id)
-        {
-            return Ok(_context.Games.Find(id));
-        }
+        //[HttpGet]
+        //[Route("{id:int}")]
+        //public IActionResult GetById(int id)
+        //{
+        //    return Ok(_context.Games.Find(id));
+        //}
 
-        [HttpPost]
-        public IActionResult Post(Game game)
-        {
-            _context.Games.Add(game);
-            _context.SaveChanges();
-            return StatusCode(StatusCodes.Status201Created, game);
-        }
+        //[HttpPost]
+        //public IActionResult Post(Game game)
+        //{
+        //    _context.Games.Add(game);
+        //    _context.SaveChanges();
+        //    return StatusCode(StatusCodes.Status201Created, game);
+        //}
 
-        [HttpPut]
-        [Route("{id:int}")]
-        [Produces("application/json")]
-        public IActionResult Put(int id, Game game)
-        {
+        //[HttpPut]
+        //[Route("{id:int}")]
+        //[Produces("application/json")]
+        //public IActionResult Put(int id, Game game)
+        //{
 
-            var gameDb = _context.Games.Find(id);
+        //    var gameDb = _context.Games.Find(id);
 
-            gameDb.Title = game.Title;
-            gameDb.GameDescription = game.GameDescription;
-            gameDb.GamePlatform = game.GamePlatform;
+        //    gameDb.Title = game.Title;
+        //    gameDb.GameDescription = game.GameDescription;
+        //    gameDb.GamePlatform = game.GamePlatform;
 
-            _context.Games.Update(gameDb);
-            _context.SaveChanges();
+        //    _context.Games.Update(gameDb);
+        //    _context.SaveChanges();
 
-            return Ok(new { message = "Successfully updated" });
+        //    return Ok(new { message = "Successfully updated" });
 
-        }
+        //}
 
         //[HttpDelete]
         //[Route("{id:int}")]
