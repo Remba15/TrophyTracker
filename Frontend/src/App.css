@@ -8,6 +8,11 @@
   text-align: right;
 }
 
+.action_buttons{
+  margin-right: 5px;
+  color: white;
+}
+
 .middle{
   text-align: center;
 }

@@ -6,7 +6,7 @@ async function get(){
         return {error: false, message: response.data}
     })
     .catch(()=>{
-        return {error: true, message: 'Problem kod dohvaćanja igrača'}
+        return {error: true, message: 'Error while fetching player'}
     })
 }
 
@@ -20,7 +20,26 @@ async function deletion(sifra){
     })
 }
 
+async function add(player){
+    return await HttpService.post('/Player', player)
+    .then(()=>{
+        return {error: true, message: 'Error while adding player'}
+    })
+}
+
+async function getById(id){
+    return await HttpService.get('/Player/'+id)
+    .then((response)=>{
+        return {error: false, message: response.data}
+    })
+    .catch((e)=>{
+        return {error: true, message: 'Error while fetching player'}
+    })
+}
+
 export default{
     get,
-    deletion
+    deletion,
+    add,
+    getById
 }

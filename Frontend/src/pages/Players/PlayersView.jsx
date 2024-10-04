@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import { Button, Table } from "react-bootstrap";
 import moment from "moment";
@@ -10,6 +10,8 @@ import PlayerService from "../../services/PlayerService";
 export default function PlayersView(){
 
     const[players, setPlayers] = useState();
+
+    const navigate = useNavigate();
 
     async function getPlayers(){
         const response = await PlayerService.get();
@@ -51,7 +53,8 @@ export default function PlayersView(){
 
     return(
         <>
-            
+            <Link to={RouteNames.PLAYERS_ADD}
+            className="btn btn-success wide">Add new player</Link>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
@@ -74,7 +77,17 @@ export default function PlayersView(){
                                 {player.region==null ? 'Not defined' : player.region}
                             </td>
                             <td className="right">
+
                                 <Button
+                                className="action_buttons"
+                                variant="info"
+                                onClick={()=>navigate(`/Player/${player.id}`)}
+                                >
+                                    Update
+                                </Button>
+
+                                <Button
+                                className="action_buttons"
                                 variant="danger"
                                 onClick={()=>deleteRow(player.id)}>
                                     Delete
