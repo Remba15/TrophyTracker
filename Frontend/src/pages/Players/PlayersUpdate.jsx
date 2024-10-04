@@ -3,9 +3,11 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { RouteNames } from "../../constants";
 import { useEffect, useState } from "react";
 import PlayerService from "../../services/PlayerService";
+import moment from "moment";
 
 
 export default function PlayersUpdate(){
+
     const [player, setPlayer] = useState({});
     const navigate = useNavigate();
     const routeParams = useParams();
@@ -25,8 +27,23 @@ export default function PlayersUpdate(){
         fetchPlayer();
     })
 
+    async function update(player){
+        const response = await PlayerService.update(routeParams.id, player);
+        if(response.error){
+            alert(response.message)
+            return;
+        }
+        navigate(RouteNames.PLAYERS_VIEW)
+    }
+
     function processSubmit(e){
         e.preventDefault();
+        let data = new FormData(e.target)
+        update({
+            username: data.get('username'),
+            registrationDate: moment.utc(data.get('registrationDate')),
+            region: data.get('region')
+        })
     }
 
     return(
@@ -54,12 +71,12 @@ export default function PlayersUpdate(){
         <Row className="actions">
         <Col xs={6} sm={12} md={3} lg={6} xl={6} xxl={6}>
                 <Link to={RouteNames.PLAYERS_VIEW}
-                className="btn btn-danger siroko">Cancel</Link>
+                className="btn btn-danger wide">Cancel</Link>
             </Col>
             <Col xs={6} sm={12} md={9} lg={6} xl={6} xxl={6}>
                 <Button variant="success"
                 type="submit"
-                className="siroko">Update player</Button>
+                className="wide">Update player</Button>
             </Col>
         </Row>
 

@@ -81,7 +81,7 @@ export default function PlayersView(){
                                 <Button
                                 className="action_buttons"
                                 variant="info"
-                                onClick={()=>navigate(`/Player/${player.id}`)}
+                                onClick={()=>navigate(`/Players/${player.id}`)}
                                 >
                                     Update
                                 </Button>

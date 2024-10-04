@@ -10,7 +10,7 @@ async function get(){
     })
 }
 
-async function deletion(sifra){
+async function deletion(id){
     return await HttpService.delete('/Player/' + id)
     .then(()=>{
         return {error: false, message: 'Deleted'}
@@ -37,9 +37,20 @@ async function getById(id){
     })
 }
 
+async function update(id, player){
+    return await HttpService.put('/Player/' + id, player)
+    .then(()=>{
+        return {error: false, message: 'Updated'}
+    })
+    .catch(()=>{
+        return {error:true, message: 'Error while updating player'}
+    })
+}
+
 export default{
     get,
     deletion,
     add,
-    getById
+    getById,
+    update
 }

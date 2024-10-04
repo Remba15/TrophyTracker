@@ -18,6 +18,7 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path={RouteNames.HOME} element={<Landing/>}/>
+
           <Route path={RouteNames.PLAYERS_VIEW} element={<PlayersView/>}/>
           <Route path={RouteNames.PLAYERS_ADD} element={<PlayersAdd/>}/>
           <Route path={RouteNames.PLAYERS_UPDATE} element={<PlayersUpdate/>}/>
