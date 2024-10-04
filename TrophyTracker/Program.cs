@@ -16,9 +16,9 @@ builder.Services.AddDbContext<TrophyTrackerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TrophyTrackerContext"));
 });
 
-builder.Services.AddCors(opcije =>
+builder.Services.AddCors(options =>
 {
-    opcije.AddPolicy("CorsPolicy",
+    options.AddPolicy("CorsPolicy",
         builder =>
             builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
     );
@@ -44,6 +44,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseStaticFiles();
+app.UseDefaultFiles();
+app.MapFallbackToFile("index.html");
 
 app.UseCors("CorsPolicy");
 
