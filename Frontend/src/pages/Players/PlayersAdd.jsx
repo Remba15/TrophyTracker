@@ -22,7 +22,7 @@ export default function PlayersAdd(){
         let data = new FormData(e.target)
         addPlayer({
             username: data.get('username'),
-            registrationDate: moment.utc(data.get(registrationDate)),
+            registrationDate: moment.utc(data.get('registrationDate')),
             region: data.get('region')
         })
     }
