@@ -23,7 +23,7 @@ async function deletion(id){
 async function add(player){
     return await HttpService.post('/Player', player)
     .then(()=>{
-        return {error: true, message: 'Error while adding player'}
+        return {error: false, message: 'Error while adding player'}
     })
 }
 
