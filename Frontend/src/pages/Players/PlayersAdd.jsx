@@ -14,7 +14,7 @@ export default function PlayersAdd(){
             alert(response.message)
             return;
         }
-        navigate(RouteNames.PLAYERS_ADD);
+        navigate(RouteNames.PLAYERS_VIEW);
     }
 
     function processSubmit(e){

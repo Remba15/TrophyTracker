@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TrophyTracker.Data;
+using TrophyTracker.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ builder.Services.AddCors(options =>
             builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
     );
 });
+
+builder.Services.AddAutoMapper(typeof(TrophyTrackerMappingProfile));
 
 var app = builder.Build();
 
