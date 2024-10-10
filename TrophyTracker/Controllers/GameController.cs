@@ -1,75 +1,159 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using TrophyTracker.Data;
 using TrophyTracker.Models;
+using TrophyTracker.Models.DTO;
 
 namespace TrophyTracker.Controllers
 {
     [ApiController]
     [Route("Api/v1/[controller]")]
-    public class GameController : ControllerBase
+    public class GameController(TrophyTrackerContext context, IMapper mapper) : TrophyTrackerController(context, mapper)
     {
 
-        private readonly TrophyTrackerContext _context;
-
-        public GameController(TrophyTrackerContext context)
+        [HttpGet]
+        public ActionResult<GameDTORead> Get()
         {
-            _context = context;
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = ModelState });
+            }
+            try
+            {
+                return Ok(_mapper.Map<List<GameDTORead>>(_context.Games));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
+        [HttpGet]
+        [Route("{id:int}")]
+        public ActionResult<GameDTORead> GetById(int id)
+        {
 
-        //    return Ok(_context.Games);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = ModelState });
+            }
+            Game? game;
+            try
+            {
+                game = _context.Games.Find(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            if (game == null)
+            {
+                return NotFound(new { message = "Game does not exist in database" });
+            }
 
-        //}
+            return Ok(_mapper.Map<GameDTORead>(game));
 
-        //[HttpGet]
-        //[Route("{id:int}")]
-        //public IActionResult GetById(int id)
-        //{
-        //    return Ok(_context.Games.Find(id));
-        //}
+        }
 
-        //[HttpPost]
-        //public IActionResult Post(Game game)
-        //{
-        //    _context.Games.Add(game);
-        //    _context.SaveChanges();
-        //    return StatusCode(StatusCodes.Status201Created, game);
-        //}
+        [HttpPost]
+        public IActionResult Post(GameDTOInsertUpdate dto)
+        {
 
-        //[HttpPut]
-        //[Route("{id:int}")]
-        //[Produces("application/json")]
-        //public IActionResult Put(int id, Game game)
-        //{
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = ModelState });
+            }
+            try
+            {
+                var game = _mapper.Map<Game>(dto);
+                _context.Games.Add(game);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, _mapper.Map<GameDTORead>(game));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
 
-        //    var gameDb = _context.Games.Find(id);
+        }
 
-        //    gameDb.Title = game.Title;
-        //    gameDb.GameDescription = game.GameDescription;
-        //    gameDb.GamePlatform = game.GamePlatform;
+        [HttpPut]
+        [Route("{id:int}")]
+        [Produces("application/json")]
+        public IActionResult Put(int id, GameDTOInsertUpdate dto)
+        {
 
-        //    _context.Games.Update(gameDb);
-        //    _context.SaveChanges();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = ModelState });
+            }
+            try
+            {
+                Game? game;
+                try
+                {
+                    game = _context.Games.Find(id);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { message = ex.Message });
+                }
+                if (game == null)
+                {
+                    return NotFound(new { message = "Game does not exist in database" });
+                }
 
-        //    return Ok(new { message = "Successfully updated" });
+                game = _mapper.Map(dto, game);
 
-        //}
+                _context.Games.Update(game);
+                _context.SaveChanges();
 
-        //[HttpDelete]
-        //[Route("{id:int}")]
-        //[Produces("application/json")]
-        //public IActionResult Delete(int id)
-        //{
-        //    var gameDb = _context.Games.Find(id);
+                return Ok(new { message = "Change successfull" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
 
-        //    _context.Games.Remove(gameDb);
-        //    _context.SaveChanges();
+        }
 
-        //    return Ok(new { message = "Successfully removed" });
-        //}
+        [HttpDelete]
+        [Route("{id:int}")]
+        [Produces("application/json")]
+        public IActionResult Delete(int id)
+        {
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { message = ModelState });
+            }
+            try
+            {
+                Game? game;
+                try
+                {
+                    game = _context.Games.Find(id);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new { message = ex.Message });
+                }
+                if(game == null)
+                {
+                    return NotFound("Game doues not exist in database");
+                }
+
+                _context.Games.Remove(game);
+                _context.SaveChanges();
+                return Ok(new { message = "Successfully deleted" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message});
+            }
+
+        }
     }
 }

@@ -11,6 +11,9 @@ namespace TrophyTracker.Mapping
         {
             CreateMap<Player, PlayerDTORead>();
             CreateMap<PlayerDTOInsertUpdate, Player>();
+
+            CreateMap<Game, GameDTORead>();
+            CreateMap<GameDTOInsertUpdate, Game>();
         }
 
     }

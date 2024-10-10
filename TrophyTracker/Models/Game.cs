@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace TrophyTracker.Models
 {
