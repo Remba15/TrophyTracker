@@ -1,61 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using TrophyTracker.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using TrophyTracker.Data;
-using AutoMapper;
+using TrophyTracker.Models;
 using TrophyTracker.Models.DTO;
-
 
 namespace TrophyTracker.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
-    public class PlayerController(TrophyTrackerContext context, IMapper mapper) : TrophyTrackerController(context, mapper)
+    [Route("Api/v1/[controller]")]
+    public class TrophyController(TrophyTrackerContext context, IMapper mapper) : TrophyTrackerController(context, mapper)
     {
 
         [HttpGet]
-        public ActionResult<List<PlayerDTORead>> Get()
+        public ActionResult<TrophyDTORead> Get()
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(new { message = ModelState });
             }
             try
             {
-                return Ok(_mapper.Map<List<PlayerDTORead>>(_context.Players));
+                return Ok(_mapper.Map<List<TrophyDTORead>>(_context.Trophies));
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
+
         }
 
         [HttpGet]
         [Route("{id:int}")]
-        public ActionResult<PlayerDTORead> GetById(int id)
+        public ActionResult<TrophyDTORead> GetById(int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(new { message = ModelState });
             }
-            Player? player;
+            Trophy? trophy;
             try
             {
-                player = _context.Players.Find(id);
+                trophy = _context.Trophies.Find(id);
             }
             catch (Exception ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
-            if (player == null)
+            if (trophy == null)
             {
-                return NotFound(new { message = "Player does not exist" });
+                return NotFound(new { message = "Trophy does not exist in database" });
             }
 
-            return Ok(_mapper.Map<PlayerDTORead>(player));
+            return Ok(_mapper.Map<TrophyDTORead>(trophy));
+
         }
 
         [HttpPost]
-        public IActionResult Post(PlayerDTOInsertUpdate dto)
+        public IActionResult Post(TrophyDTOInsertUpdate dto)
         {
             if (!ModelState.IsValid)
             {
@@ -63,10 +65,10 @@ namespace TrophyTracker.Controllers
             }
             try
             {
-                var player = _mapper.Map<Player>(dto);
-                _context.Players.Add(player);
+                var trophy = _mapper.Map<Trophy>(dto);
+                _context.Trophies.Add(trophy);
                 _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, _mapper.Map<PlayerDTORead>(player));
+                return StatusCode(StatusCodes.Status201Created, _mapper.Map<TrophyDTORead>(trophy));
             }
             catch (Exception ex)
             {
@@ -77,77 +79,75 @@ namespace TrophyTracker.Controllers
         [HttpPut]
         [Route("{id:int}")]
         [Produces("application/json")]
-        public IActionResult Put(int id, PlayerDTOInsertUpdate dto)
+        public IActionResult Put(int id, TrophyDTOInsertUpdate dto)
         {
-
             if (!ModelState.IsValid)
             {
-                return BadRequest(new { message = ModelState });
+                return BadRequest(new {message = ModelState});
             }
             try
             {
-                Player? player;
+                Trophy? trophy;
                 try
                 {
-                    player = _context.Players.Find(id);
+                    trophy = _context.Trophies.Find(id);
                 }
                 catch (Exception ex)
                 {
                     return BadRequest(new { message = ex.Message });
                 }
-                if (player == null)
+                if(trophy == null)
                 {
-                    return NotFound(new { message = "Player does not exist" });
+                    return NotFound(new {message = "Trophy does not exist in database."});
                 }
 
-                player = _mapper.Map(dto, player);
+                trophy = _mapper.Map(dto, trophy);
 
-                _context.Players.Update(player);
+                _context.Trophies.Update(trophy);
                 _context.SaveChanges();
 
                 return Ok(new { message = "Change successfull" });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new {message = ex.Message});
             }
         }
-
 
         [HttpDelete]
         [Route("{id:int}")]
         [Produces("application/json")]
         public IActionResult Delete(int id)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(new { message = ModelState });
             }
             try
             {
-                Player? player;
+                Trophy? trophy;
                 try
                 {
-                    player = _context.Players.Find(id);
+                    trophy = _context.Trophies.Find(id);
                 }
                 catch (Exception ex)
                 {
                     return BadRequest(new { message = ex.Message });
                 }
-                if (player == null)
+                if(trophy == null)
                 {
-                    return NotFound("Player does not exist");
+                    return NotFound("Trophy does not exist in database");
                 }
-                _context.Players.Remove(player);
+
+                _context.Trophies.Remove(trophy);
                 _context.SaveChanges();
                 return Ok(new { message = "Successfully deleted" });
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new {message = ex.Message});
             }
-
         }
+
     }
 }

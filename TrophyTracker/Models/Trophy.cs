@@ -6,10 +6,14 @@ namespace TrophyTracker.Models
     {
 
         public string? Title { get; set; }
+        [Column("TrophyDescription")]
         public string? Description { get; set; }
         [ForeignKey("game")]
+        [Column("Game_ID")]
         public Game GameID { get; set; }
         public string? TrophyType { get; set; }
+        [Column("TrophyIcon")]
+        public string? Icon { get; set; }
 
         public override string ToString()
         {

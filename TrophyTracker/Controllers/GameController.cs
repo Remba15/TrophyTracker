@@ -142,7 +142,7 @@ namespace TrophyTracker.Controllers
                 }
                 if(game == null)
                 {
-                    return NotFound("Game doues not exist in database");
+                    return NotFound("Game does not exist in database");
                 }
 
                 _context.Games.Remove(game);
