@@ -8,15 +8,14 @@ namespace TrophyTracker.Models
 
         public string? Title { get; set; }
         public string? Developer { get; set; }
-        [Column("GamePlatform")]
-        public string? Platform { get; set; }
-        [Column("GameDescription")]
-        public string? Description { get; set; }
-        public string? CoverImage { get; set; }
+        public string? GamePlatform { get; set; }
+        public string? GameDescription { get; set; }
+
+        //public ICollection<Trophy>? Trophies { get; set; }
 
         public override string ToString()
         {
-            return this.Title + " - Developed by " + this.Developer + " for " + this.Platform;
+            return this.Title + " - Developed by " + this.Developer + " for " + this.GamePlatform;
         }
 
     }

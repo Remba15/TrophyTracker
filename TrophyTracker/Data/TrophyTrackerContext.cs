@@ -15,5 +15,12 @@ namespace TrophyTracker.Data
         public DbSet<Game> Games { get; set; }
         public DbSet<Trophy> Trophies { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<Trophy>().HasOne(t => t.Game);
+
+        }
+
     }
 }

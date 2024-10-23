@@ -6,7 +6,6 @@
         string? Developer,
         string? GamePlatform,
         string? GameDescription
-        //DODATI SLIKU
         );
     
 }

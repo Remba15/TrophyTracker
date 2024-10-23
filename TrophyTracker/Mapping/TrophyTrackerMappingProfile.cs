@@ -15,7 +15,15 @@ namespace TrophyTracker.Mapping
             CreateMap<Game, GameDTORead>();
             CreateMap<GameDTOInsertUpdate, Game>();
 
-            CreateMap<Trophy, TrophyDTORead>();
+            CreateMap<Trophy, TrophyDTORead>()
+                .ForCtorParam(
+                    "GameTitle",
+                    opt => opt.MapFrom(src => src.Game.Title)
+                );
+            CreateMap<Trophy, TrophyDTOInsertUpdate>().ForMember(
+                    dest => dest.GameID,
+                    opt => opt.MapFrom(src => src.Game.ID)
+                );
             CreateMap<TrophyDTOInsertUpdate, Game>();
         }
 
