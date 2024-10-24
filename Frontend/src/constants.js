@@ -3,7 +3,11 @@ export const RouteNames = {
 
     PLAYERS_VIEW: '/Players',
     PLAYERS_ADD: '/Players/Add',
-    PLAYERS_UPDATE: '/Players/:id'
+    PLAYERS_UPDATE: '/Players/:id',
+
+    GAMES_VIEW: '/Games',
+    GAMES_ADD: '/Games/Add',
+    GAMES_UPDATE: '/Games/:id'
 
 
 }

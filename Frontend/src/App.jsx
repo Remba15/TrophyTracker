@@ -8,6 +8,9 @@ import Landing from './pages/landing';
 import PlayersView from './pages/Players/PlayersView';
 import PlayersAdd from './pages/Players/PlayersAdd';
 import PlayersUpdate from './pages/Players/PlayersUpdate';
+import GamesView from './pages/Games/GamesView';
+import GamesAdd from './pages/Games/GamesAdd';
+import GamesUpdate from './pages/Games/GamesUpdate';
 
 
 function App() {
@@ -22,6 +25,11 @@ function App() {
           <Route path={RouteNames.PLAYERS_VIEW} element={<PlayersView/>}/>
           <Route path={RouteNames.PLAYERS_ADD} element={<PlayersAdd/>}/>
           <Route path={RouteNames.PLAYERS_UPDATE} element={<PlayersUpdate/>}/>
+
+          <Route path={RouteNames.GAMES_VIEW} element={<GamesView/>}/>
+          <Route path={RouteNames.GAMES_ADD} element={<GamesAdd/>}/>
+          <Route path={RouteNames.GAMES_UPDATE} element={<GamesUpdate/>}/>
+
         </Routes>
     </Container>
 

@@ -24,11 +24,11 @@ export default function NavBar(){
                     >Players
                     </NavDropdown.Item>
 
-                    <NavDropdown.Item href="#action/3.2">
+                    <NavDropdown.Item onClick={()=>navigate(RouteNames.GAMES_VIEW)}>
                     Games
                     </NavDropdown.Item>
 
-                    <NavDropdown.Item href="#action/3.3">
+                    <NavDropdown.Item onClick={()=>navigate(RouteNames.TROPHIES_VIEW)}>
                     Trophies
                     </NavDropdown.Item>
 
