@@ -24,7 +24,7 @@ namespace TrophyTracker.Mapping
                     dest => dest.GameID,
                     opt => opt.MapFrom(src => src.Game.ID)
                 );
-            CreateMap<TrophyDTOInsertUpdate, Game>();
+            CreateMap<TrophyDTOInsertUpdate, Trophy>();
         }
 
     }
