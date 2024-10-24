@@ -37,7 +37,7 @@ export default function PlayersView(){
     }
 
     async function deletePlayer(id){
-        const response = await PlayerService.deletion(id);
+        const response = await PlayerService.remove(id);
         if(response.error){
             alert(response.message)
             return

@@ -10,7 +10,7 @@ async function get(){
     })
 }
 
-async function deletion(id){
+async function remove(id){
     return await HttpService.delete('/Player/' + id)
     .then(()=>{
         return {error: false, message: 'Deleted'}
@@ -28,7 +28,7 @@ async function add(player){
     .catch((e)=>{
         switch (e.status) {
             case 400:
-                let messages='';
+                let messages='Izbacuje ovaj error iz nekog razloga u PlayerService.js';
                 for(const key in e.response.data.errors){
                     messages += key + ': ' + e.response.data.errors[key][0] + '\n';
                 }
@@ -71,7 +71,7 @@ async function update(id, player){
 
 export default{
     get,
-    deletion,
+    remove,
     add,
     getById,
     update
