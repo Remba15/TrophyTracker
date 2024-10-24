@@ -8,7 +8,7 @@ import moment from "moment";
 
 export default function PlayersUpdate(){
 
-    const [player, setPlayer] = useState();
+    const [player, setPlayer] = useState({});
     const navigate = useNavigate();
     const routeParams = useParams();
 

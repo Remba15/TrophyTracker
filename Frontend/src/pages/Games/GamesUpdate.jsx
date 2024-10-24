@@ -5,11 +5,12 @@ import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 
+
 export default function GamesUpdate(){
 
     const navigate = useNavigate();
     const routeParams = useParams();
-    const [game, setGame] = useState();
+    const [game, setGame] = useState({});
 
 
     async function fetchGame(){
@@ -19,6 +20,7 @@ export default function GamesUpdate(){
             return;
         }
         setGame(response.message);
+       // console.log(game.title)
     }
 
     useEffect(()=>{
@@ -53,30 +55,35 @@ export default function GamesUpdate(){
 
             <Form.Group controlId="title">
                 <Form.Label>Title</Form.Label>
-                <Form.Control type="text" name="title" required
-                defaultValue={game.title}/>
+                <Form.Control type="text" name="title" required 
+
+                 defaultValue={game.title}
+                />
             </Form.Group>
 
             <Form.Group controlId="developer">
                 <Form.Label>Developer</Form.Label>
                 <Form.Control type="text" name="developer"
-                defaultValue={game.developer}/>
+                 defaultValue={game.developer}
+                />
             </Form.Group>
 
             <Form.Group controlId="gamePlatform">
                 <Form.Label>Platform</Form.Label>
                 <Form.Control type="text" name="gamePlatform"
-                defaultValue={game.gamePlatform}/>
+               defaultValue={game.gamePlatform}
+                />
             </Form.Group>
 
             <Form.Group controlId="gameDescription">
                 <Form.Label>Description</Form.Label>
                 <Form.Control type="text" name="gameDescription"
-                defaultValue={game.gameDescription}/>
+                 defaultValue={game.gameDescription}
+                />
             </Form.Group>
 
         <Row className="actions">
-        <Col xs={6} sm={12} md={3} lg={6} xl={6} xxl={6}>
+            <Col xs={6} sm={12} md={3} lg={6} xl={6} xxl={6}>
                 <Link to={RouteNames.GAMES_VIEW}
                 className="btn btn-danger wide">Cancel</Link>
             </Col>

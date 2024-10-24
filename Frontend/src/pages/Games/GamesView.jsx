@@ -58,8 +58,8 @@ export default function GamesView(){
                         <tr key={index}>
                             <td>{e.title}</td>
                             <td>{e.developer}</td>
-                            <td>{e.platform}</td>
-                            <td>{e.description}</td>
+                            <td>{e.gamePlatform}</td>
+                            <td>{e.gameDescription}</td>
                            
                             <td>
                             <Button
