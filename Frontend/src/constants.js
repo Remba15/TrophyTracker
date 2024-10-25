@@ -7,7 +7,11 @@ export const RouteNames = {
 
     GAMES_VIEW: '/Games',
     GAMES_ADD: '/Games/Add',
-    GAMES_UPDATE: '/Games/:id'
+    GAMES_UPDATE: '/Games/:id',
+
+    TROPHIES_VIEW: '/Trophies',
+    TROPHIES_ADD: '/Trophies/Add',
+    TROPHIES_UPDATE: '/Trophies/:id'
 
 
 }

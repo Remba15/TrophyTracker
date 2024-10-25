@@ -57,17 +57,17 @@ export default function GamesAdd(){
                 <Form.Control type="text" name="gameDescription" required/>
             </Form.Group>
 
-        <Row className="actions">
-            <Col xs={6} sm={12} md={3} lg={6} xl={6} xxl={6}>
-                <Link to={RouteNames.GAMES_VIEW}
-                className="btn btn-danger wide action_buttons">Cancel</Link>
-            </Col>
-            <Col xs={6} sm={12} md={9} lg={6} xl={6} xxl={6}>
-                <Button variant="success"
-                type="submit"
-                className="wide action_buttons">Add game</Button>
-            </Col>
-        </Row>
+            <Row className="actions">
+                <Col xs={6} sm={12} md={3} lg={6} xl={6} xxl={6}>
+                    <Link to={RouteNames.GAMES_VIEW}
+                    className="btn btn-danger wide action_buttons">Cancel</Link>
+                </Col>
+                <Col xs={6} sm={12} md={9} lg={6} xl={6} xxl={6}>
+                    <Button variant="success"
+                    type="submit"
+                    className="wide action_buttons">Add game</Button>
+                </Col>
+            </Row>
         </Form>
         </>
 

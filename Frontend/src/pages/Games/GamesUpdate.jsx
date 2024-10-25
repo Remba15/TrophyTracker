@@ -20,7 +20,6 @@ export default function GamesUpdate(){
             return;
         }
         setGame(response.message);
-       // console.log(game.title)
     }
 
     useEffect(()=>{

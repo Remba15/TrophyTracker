@@ -11,6 +11,9 @@ import PlayersUpdate from './pages/Players/PlayersUpdate';
 import GamesView from './pages/Games/GamesView';
 import GamesAdd from './pages/Games/GamesAdd';
 import GamesUpdate from './pages/Games/GamesUpdate';
+import TrophiesView from './pages/Trophies/TrophiesView';
+import TrophiesAdd from './pages/Trophies/TrophiesAdd';
+import TrophiesUpdate from './pages/Trophies/TrophiesUpdate';
 
 
 function App() {
@@ -29,6 +32,10 @@ function App() {
           <Route path={RouteNames.GAMES_VIEW} element={<GamesView/>}/>
           <Route path={RouteNames.GAMES_ADD} element={<GamesAdd/>}/>
           <Route path={RouteNames.GAMES_UPDATE} element={<GamesUpdate/>}/>
+
+          <Route path={RouteNames.TROPHIES_VIEW} element={<TrophiesView/>}/>
+          <Route path={RouteNames.TROPHIES_ADD} element={<TrophiesAdd/>}/>
+          <Route path={RouteNames.TROPHIES_UPDATE} element={<TrophiesUpdate/>}/>
 
         </Routes>
     </Container>
