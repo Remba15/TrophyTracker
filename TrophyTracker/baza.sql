@@ -10,17 +10,15 @@ create table Games(
 	Title varchar(50) not null,
 	Developer varchar(50),
 	GamePlatform varchar(50),
-	GameDescription varchar(MAX),
-	CoverImage image
+	GameDescription varchar(MAX)
 );
 
 create table Trophies(
 	ID int not null primary key identity(1,1),
 	Title varchar(50) not null,
-	TrophyDescription text,
-	Game_ID int not null foreign key references Games(ID),
-	TrophyType varchar(10),
-	TrophyIcon image,
+	TrophyDescription varchar(MAX),
+	Game int not null foreign key references Games(ID),
+	TrophyType varchar(10)
 );
 
 create table Achievements(
@@ -39,7 +37,7 @@ insert into Games(Title, Developer, GamePlatform) values
 	
 select * from Games;
 
-insert into Trophies (Title, Game_ID, TrophyType) values
+insert into Trophies (Title, Game, TrophyType) values
 	('The Final Frontier', 1, 'Platinum'), ('Enter Survival', 2, 'Bronze'), ('Is This A Jetpack?', 3, 'Silver');
 	
 select * from Trophies
