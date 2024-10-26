@@ -14,7 +14,7 @@ export default function TrophiesAdd(){
 
     async function fetchGames(){
         const response = await GameService.get();
-        setGames(response.message);
+        setGames(response);
         setGameID(response.message[0].id);
     }
 

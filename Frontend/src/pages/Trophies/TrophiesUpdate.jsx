@@ -17,7 +17,8 @@ export default function TrophiesUpdate(){
 
     async function fetchGames(){
         const response = await GameService.get();
-        setGames(response.message)
+        console.log(response)
+        setGames(response)
     }
 
     async function fetchTrophies(){
@@ -79,7 +80,7 @@ export default function TrophiesUpdate(){
                     <Form.Label>Game</Form.Label>
                     <Form.Select
                     value={gameID}
-                    onChange={(e)=>{setGameKey(e.target.value)}}
+                    onChange={(e)=>{setGameID(e.target.value)}}
                     >
                         {games && games.map((s, index)=>(
                             <option key={index} value={s.id}>
