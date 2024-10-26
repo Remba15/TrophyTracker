@@ -11,7 +11,7 @@ namespace TrophyTracker.Models
         public string? GamePlatform { get; set; }
         public string? GameDescription { get; set; }
 
-        public ICollection<Trophy>? Trophies { get; set; }
+        
 
         public override string ToString()
         {

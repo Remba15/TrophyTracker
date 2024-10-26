@@ -1,10 +1,13 @@
-﻿namespace TrophyTracker.Models
-{
-    public class Achievement
-    {
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-        public int Player_ID { get; set; }
-        public int Trophy_ID { get; set; }
+namespace TrophyTracker.Models
+{
+    public class Achievement : Identity
+    {
+        [ForeignKey("player")]
+        public Player Player { get; set; }
+        [ForeignKey("trophy")]
+        public Trophy Trophy { get; set; }
         public DateTime? DateAchieved { get; set; }
 
     }

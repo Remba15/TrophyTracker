@@ -7,7 +7,7 @@
         public DateTime? RegistrationDate { get; set; }
         public string? Region { get; set; }
 
-        //public ICollection<Game>? Games { get; set; }
+        public ICollection<Achievement>? Achievements { get; set; }
 
         public override string ToString()
         {

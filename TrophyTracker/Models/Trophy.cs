@@ -10,6 +10,7 @@ namespace TrophyTracker.Models
         [ForeignKey("game")]
         public required Game Game { get; set; }
         public string? TrophyType { get; set; }
+        public ICollection<Achievement>? Achievements { get; set; }
         public override string ToString()
         {
             return "Type: " + this.TrophyType + "|" + "Title: " + this.Title + "|" + this.TrophyDescription;
