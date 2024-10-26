@@ -22,6 +22,7 @@ create table Trophies(
 );
 
 create table Achievements(
+	ID int not null primary key identity(1,1),
 	Player_ID int not null foreign key references Players(ID),
 	Trophy_ID int not null foreign key references Trophies(ID),
 	DateAchieved DATETIME
