@@ -23,8 +23,8 @@ create table Trophies(
 
 create table Achievements(
 	ID int not null primary key identity(1,1),
-	Player_ID int not null foreign key references Players(ID),
-	Trophy_ID int not null foreign key references Trophies(ID),
+	PlayerUsername int not null foreign key references Players(ID),
+	TrophyTitle int not null foreign key references Trophies(ID),
 	DateAchieved DATETIME
 );
 
@@ -43,7 +43,7 @@ insert into Trophies (Title, Game, TrophyType) values
 	
 select * from Trophies
 
-insert into Achievements (Player_ID, Trophy_ID, DateAchieved) values
+insert into Achievements (PlayerUsername, TrophyTitle, DateAchieved) values
 	(1, 2, '2021-04-05 18:23'), (1, 3, '2023-02-02 0:18'), (2, 1, '2015-06-13 10:25');
 	
 select * from Achievements;

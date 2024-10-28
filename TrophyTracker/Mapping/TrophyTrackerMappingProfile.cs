@@ -33,24 +33,9 @@ namespace TrophyTracker.Mapping
             #endregion
 
             #region Achievement Mapping
-            CreateMap<Achievement, AchievementDTORead>()
-                .ForCtorParam(
-                    "PlayerUsername",
-                    opt => opt.MapFrom(src => src.Player.Username)
-                );
-            CreateMap<Achievement, AchievementDTORead>()
-                .ForCtorParam(
-                    "TrophyTitle",
-                    opt => opt.MapFrom(src => src.Trophy.Title)
-                );
-            CreateMap<Achievement, AchievementDTOInsert>().ForMember(
-                    dest => dest.Player_ID,
-                    opt => opt.MapFrom(src => src.Player.ID)
-                );
-            CreateMap<Achievement, AchievementDTOInsert>().ForMember(
-                    dest => dest.Trophy_ID,
-                    opt => opt.MapFrom(src => src.Trophy.ID)
-                );
+            CreateMap<Achievement, AchievementDTORead>().ConstructUsing(e =>
+                new AchievementDTORead(e.ID, e.Player.Username, e.Trophy.Title, e.DateAchieved)
+            );
             CreateMap<AchievementDTOInsert, Achievement>();
             #endregion
 

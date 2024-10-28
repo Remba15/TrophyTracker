@@ -8,7 +8,7 @@ namespace TrophyTracker.Models
         public Player Player { get; set; }
         [ForeignKey("trophy")]
         public Trophy Trophy { get; set; }
-        public DateTime? DateAchieved { get; set; }
+        public DateTime DateAchieved { get; set; }
 
     }
 }
