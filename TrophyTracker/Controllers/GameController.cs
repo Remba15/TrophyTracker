@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TrophyTracker.Data;
 using TrophyTracker.Models;
 using TrophyTracker.Models.DTO;
@@ -140,7 +141,7 @@ namespace TrophyTracker.Controllers
                 {
                     return BadRequest(new { message = ex.Message });
                 }
-                if(game == null)
+                if (game == null)
                 {
                     return NotFound("Game does not exist in database");
                 }
@@ -151,9 +152,60 @@ namespace TrophyTracker.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message});
+                return BadRequest(new { message = ex.Message });
             }
 
+        }
+
+        [HttpGet]
+        [Route("search/{condition}")]
+        public ActionResult<List<GameDTORead>> SearchGame(string condition)
+        {
+            if(condition == null || condition.Length < 3)
+            {
+                return BadRequest(ModelState);
+            }
+            condition = condition.ToLower();
+            try
+            {
+                IEnumerable<Game> query = _context.Games;
+                var sequence = condition.Split(" ");
+                foreach (var s in condition.Split(" "))
+                {
+                    query = query.Where(p => p.Title.ToLower().Contains(s) || p.Developer.ToLower().Contains(s));
+                }
+                var games = query.ToList();
+                return Ok(_mapper.Map<List<GameDTORead>>(games));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new {message = ex.Message});
+            }
+        }
+
+
+        [HttpGet]
+        [Route("searchPaging/{page}")]
+        public IActionResult searchGamePaging(int page, string condition = "")
+        {
+            var perPage = 4;
+            condition = condition.ToLower();
+            try
+            {
+                var games = _context.Games
+                    .Where(p => EF.Functions.Like(p.Title.ToLower(), "%" + condition + "%")
+                                || EF.Functions.Like(p.Developer.ToLower(), "%" + condition + "%"))
+                    .Skip((perPage * page) - perPage)
+                    .Take(perPage)
+                    .OrderBy(p => p.Title)
+                    .ToList();
+
+                return Ok(_mapper.Map<List<GameDTORead>>(games));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

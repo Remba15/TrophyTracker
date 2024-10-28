@@ -1,33 +1,44 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GameService from "../../services/GameService";
-import { Button, Table } from "react-bootstrap";
-import { RouteNames } from "../../constants";
+import { Button, Card, Col, Form, Pagination, Row } from "react-bootstrap";
+import placeholder from '../../assets/placeholder.png';
+import { APP_URL, RouteNames } from "../../constants";
+import { IoIosAdd } from "react-icons/io";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 
 export default function GamesView(){
 
     const[games, setGames] = useState();
+    const[page, setPages] = useState(1);
+    const[condition, setCondition] = useState('');
 
-    const navigate = useNavigate();
 
     async function fetchGames(){
-        await GameService.get()
-        .then((response)=>{
-            setGames(response);
-        })
-        .catch((e)=>{
-            console.log(e)
-        });
+        
+        const response = await GameService.getPages(page, condition);
+        if(response.error){
+            alert(response.message);
+
+            return;
+        }
+        if(response.message.length==0){
+            setPages(page-1);
+            return;
+        }
+        setGames(response.message);
+
     }
 
     useEffect(()=>{
         fetchGames();
-    },[]);
+    },[page, condition]);
 
 
     async function deleteAsync(id){
         const response = await GameService.remove(id);
+        //hideLoading();
         if(response.error){
             alert(response.message)
             return
@@ -39,47 +50,101 @@ export default function GamesView(){
         deleteAsync(id);
     }
 
+    function image(game){
+        if(game.image!=null){
+            return APP_URL + game.image + `?${Date.now()}`;
+        }
+        return placeholder;
+    }
+
+    function changeCondition(e){
+        if(e.nativeEvent.key == "Enter"){
+            console.log('Enter');
+            setPages(1);
+            setCondition(e.nativeEvent.srcElement.value);
+            setGames([]);
+        }
+    }
+
+    function increasePage(){
+        setPages(page + 1);
+    }
+
+    function decreasePage(){
+        if(page == 1){
+            return;
+        }
+        setPages(page - 1);
+    }
+
 
     return(
         <>
-            <Link to={RouteNames.GAMES_ADD}
-            className="btn btn-success wide">Add new game</Link>
-            <Table striped bordered hover responsive>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Developer</th>
-                        <th>Platform</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {games && games.map((e,index)=>(
-                        <tr key={index}>
-                            <td>{e.title}</td>
-                            <td>{e.developer}</td>
-                            <td>{e.gamePlatform}</td>
-                            <td>{e.gameDescription}</td>
-                           
-                            <td>
-                            <Button
-                                variant="primary"
-                                onClick={()=>navigate(`/Games/${e.id}`)}>
-                                    Update
-                                </Button>
-                                &nbsp;&nbsp;&nbsp;
-                                <Button
-                                variant="danger"
-                                onClick={()=>remove(e.id)}>
-                                    Delete
-                                </Button>
+            <Row>
+                <Col key={1} sm={12} lg={4} md={4}>
+                    <Form.Control
+                    type='text'
+                    name='search'
+                    placeholder="Game title or developer [Enter]"
+                    maxLength={255}
+                    defaultValue=''
+                    onKeyUp={changeCondition}
+                    />
+                </Col>
+                <Col key={2} sm={12} lg={4} md={4}>
+                    {games && games.length > 0 &&(
+                        <div style={{display: "flex", justifyContent: "center"}}>
+                            <Pagination size="lg">
+                                <Pagination.Prev onClick={decreasePage} />
+                                <Pagination.Item disabled>{page}</Pagination.Item>
+                                <Pagination.Next onClick={increasePage}/>
+                            </Pagination>
+                        </div>
+                    )}
+                </Col>
+                <Col key={3} sm={12} lg={4} md={4}>
+                    <Link to={RouteNames.GAMES_ADD} className="btn btn-success wide">
+                        <IoIosAdd
+                        size={25}
+                        /> Add Game
+                    </Link>
+                </Col>
+            </Row>
 
-                               
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+
+            <Row>
+                { games && games.map((p) => (
+                    <Col key={p.id} sm={12} lg={3} md={3}>
+                        <Card style={{marginTop: '1rem'}}>
+                            <Card.Img variant="top" src={image(p)} className="image"/>
+                            <Card.Body>
+                                <Card.Title>{p.title}</Card.Title>
+                                <Card.Text>
+                                    {p.developer}
+                                </Card.Text>
+                                <Row>
+                                    <Col>
+                                        <Link className="btn btn-primary" to={`/Games/${p.id}`}><FaEdit/></Link>
+                                    </Col>
+                                    <Col>
+                                    <Button variant="danger" onClick={() => remove(p.id)}><FaTrash/></Button>
+                                    </Col>
+                                </Row>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+            <hr />
+                {games && games.length > 0 && (
+                    <div style={{displac: "flex", justifyContent: "center"}}>
+                        <Pagination size="lg">
+                            <Pagination.Prev onClick={decreasePage}/>
+                            <Pagination.Item disabled>{page}</Pagination.Item>
+                            <Pagination.Next onClick={increasePage}/>
+                        </Pagination>
+                    </div>
+                )}
         </>
     )
 

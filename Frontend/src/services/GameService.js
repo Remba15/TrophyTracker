@@ -67,11 +67,27 @@ async function update(id, Game){
     })
 }
 
+async function searchGame(condition){
+    return await HttpService.get('/Game/search/' + condition)
+    .then((response)=>{
+        return {error: false, message: response.data}
+    })
+    .catch((e)=>{return {error: true, message: 'Error while searching for game!'}})
+}
+
+async function getPages(page, condition){
+    return await HttpService.get('/Game/searchPaging/' + page + '?condition=' + condition)
+    .then((response)=>{return {error: false, message: response.data}})
+    .catch((e)=>{return {error: true, message: 'Error while finding game'}});
+}
+
 export default{
     get,
     getById,
     remove,
     add,
-    update
+    update,
+    searchGame,
+    getPages
 
 }

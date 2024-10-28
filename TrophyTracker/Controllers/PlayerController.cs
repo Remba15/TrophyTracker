@@ -8,7 +8,7 @@ using TrophyTracker.Models.DTO;
 namespace TrophyTracker.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("Api/v1/[controller]")]
     public class PlayerController(TrophyTrackerContext context, IMapper mapper) : TrophyTrackerController(context, mapper)
     {
 

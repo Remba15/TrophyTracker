@@ -16,4 +16,5 @@ export const RouteNames = {
 
 }
 
-export const BACKEND_URL = 'https://remba16-001-site1.ltempurl.com/Api/v1'
+export const APP_URL = 'https://remba16-001-site1.ltempurl.com';
+export const BACKEND_URL = APP_URL + '/Api/v1';
