@@ -192,13 +192,18 @@ namespace TrophyTracker.Controllers
             condition = condition.ToLower();
             try
             {
-                var games = _context.Games
-                    .Where(p => EF.Functions.Like(p.Title.ToLower(), "%" + condition + "%")
-                                || EF.Functions.Like(p.Developer.ToLower(), "%" + condition + "%"))
-                    .Skip((perPage * page) - perPage)
+                IEnumerable<Game> query = _context.Games;
+                var sequence = condition.Split(" ");
+                foreach(var s in condition.Split(" "))
+                {
+                    query = query.Where(p => p.Title.ToLower().Contains(s) || p.Developer.ToLower().Contains(s));
+                }
+                query.Skip((perPage * page) - perPage)
                     .Take(perPage)
                     .OrderBy(p => p.Title)
                     .ToList();
+
+                var games = query.ToList();
 
                 return Ok(_mapper.Map<List<GameDTORead>>(games));
             }

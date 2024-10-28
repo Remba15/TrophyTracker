@@ -38,7 +38,6 @@ export default function GamesView(){
 
     async function deleteAsync(id){
         const response = await GameService.remove(id);
-        //hideLoading();
         if(response.error){
             alert(response.message)
             return
