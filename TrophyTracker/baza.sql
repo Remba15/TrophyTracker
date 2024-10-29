@@ -55,3 +55,5 @@ insert into Achievements (PlayerUsername, TrophyTitle, DateAchieved) values
 select * from Achievements;
 
 insert into Users values ('edunova@edunova.hr', '$2a$15$9xMDthO5VOFWMfOD0EJGou7wqfpwyeg/.My2E.y4NcvTUESVydms2');
+
+select * from Users;
