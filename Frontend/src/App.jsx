@@ -14,14 +14,17 @@ import GamesUpdate from './pages/Games/GamesUpdate';
 import TrophiesView from './pages/Trophies/TrophiesView';
 import TrophiesAdd from './pages/Trophies/TrophiesAdd';
 import TrophiesUpdate from './pages/Trophies/TrophiesUpdate';
+import LoadingSpinner from './components/LoadingSpinner';
 
 
 function App() {
 
   return (
     <>
+    <LoadingSpinner/>
     <Container>
         <NavBar/>
+
         <Routes>
           <Route path={RouteNames.HOME} element={<Landing/>}/>
 

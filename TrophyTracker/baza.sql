@@ -1,3 +1,9 @@
+create table Users(
+	ID int not null primary key identity(1,1),
+	Email varchar(50) not null,
+	_Password varchar(200) not null
+);
+
 create table Players(
 	ID int not null primary key identity(1,1),
 	Username varchar(50) not null,
@@ -47,3 +53,5 @@ insert into Achievements (PlayerUsername, TrophyTitle, DateAchieved) values
 	(1, 2, '2021-04-05 18:23'), (1, 3, '2023-02-02 0:18'), (2, 1, '2015-06-13 10:25');
 	
 select * from Achievements;
+
+insert into Users values ('edunova@edunova.hr', '$2a$15$9xMDthO5VOFWMfOD0EJGou7wqfpwyeg/.My2E.y4NcvTUESVydms2');
