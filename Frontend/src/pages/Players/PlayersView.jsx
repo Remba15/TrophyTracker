@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { RouteNames } from "../../constants";
-import { Button, Table } from "react-bootstrap";
+import { APP_URL, RouteNames } from "../../constants";
+import { Button, Image, Table } from "react-bootstrap";
 import moment from "moment";
 import PlayerService from "../../services/PlayerService";
+import placeholderPlayer from "../../assets/placeholderPlayer.png";
 
 
 
@@ -45,6 +46,13 @@ export default function PlayersView(){
         getPlayers();
     }
 
+    function image(player){
+        if(player.image!=null){
+            return APP_URL + player.image + `?${Date.now()}`;
+        }
+        return placeholderPlayer;
+    }
+
     useEffect(()=>{
         getPlayers();
     },[])
@@ -58,6 +66,7 @@ export default function PlayersView(){
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Username</th>
                         <th>Registration Date</th>
                         <th>Region</th>
@@ -67,6 +76,9 @@ export default function PlayersView(){
                 <tbody>
                     {players && players.map((player, index)=>(
                         <tr key={index}>
+                            <td>
+                                <Image src={image} />
+                            </td>
                             <td className={player.username==null ? 'middle' : 'right'}>
                                 {player.username==null ? 'Not defined' : player.username}
                             </td>
