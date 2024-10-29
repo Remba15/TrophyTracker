@@ -5,7 +5,7 @@ using TrophyTracker.Data;
 
 namespace TrophyTracker.Controllers
 {
-    [Authorize]
+   [Authorize]
     public abstract class TrophyTrackerController (TrophyTrackerContext context, IMapper mapper) : ControllerBase
     {
 

@@ -4,9 +4,9 @@ namespace TrophyTracker.Models
 {
     public class Achievement : Identity
     {
-        [ForeignKey("player")]
+        [ForeignKey("PlayerID")]
         public Player Player { get; set; }
-        [ForeignKey("trophy")]
+        [ForeignKey("TrophyID")]
         public Trophy Trophy { get; set; }
         public DateTime DateAchieved { get; set; }
 

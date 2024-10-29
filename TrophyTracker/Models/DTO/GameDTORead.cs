@@ -5,8 +5,7 @@
         string Title,
         string? Developer,
         string? GamePlatform,
-        string? GameDescription,
-        string? Image
+        string? GameDescription
         );
     
 }

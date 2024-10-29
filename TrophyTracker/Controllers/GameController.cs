@@ -192,16 +192,15 @@ namespace TrophyTracker.Controllers
             condition = condition.ToLower();
             try
             {
-                IEnumerable<Game> query = _context.Games;
+                IEnumerable<Game> query = _context.Games.Skip((perPage * page) - perPage);
+
                 var sequence = condition.Split(" ");
                 foreach(var s in condition.Split(" "))
                 {
                     query = query.Where(p => p.Title.ToLower().Contains(s) || p.Developer.ToLower().Contains(s));
                 }
                 query.Skip((perPage * page) - perPage)
-                    .Take(perPage)
-                    .OrderBy(p => p.Title)
-                    .ToList();
+                    .OrderBy(p => p.Title);
 
                 var games = query.ToList();
 

@@ -43,7 +43,7 @@ export default function PlayersUpdate(){
 
     useEffect(()=>{
         fetchPlayer();
-    })
+    },[])
 
     async function update(player){
         showLoading();
@@ -67,7 +67,7 @@ export default function PlayersUpdate(){
     }
 
     function onCrop(){
-        setImageForServer(cropperRef.current.cropper.getCroppedCanvas().toDataURL);
+        setImageForServer(cropperRef.current.cropper.getCroppedCanvas().toDataURL());
     }
 
     function onChangeImage(e){

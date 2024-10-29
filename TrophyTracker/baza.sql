@@ -29,8 +29,8 @@ create table Trophies(
 
 create table Achievements(
 	ID int not null primary key identity(1,1),
-	PlayerUsername int not null foreign key references Players(ID),
-	TrophyTitle int not null foreign key references Trophies(ID),
+	PlayerID int not null foreign key references Players(ID),
+	TrophyID int not null foreign key references Trophies(ID),
 	DateAchieved DATETIME
 );
 
@@ -47,9 +47,9 @@ select * from Games;
 insert into Trophies (Title, Game, TrophyType) values
 	('The Final Frontier', 1, 'Platinum'), ('Enter Survival', 2, 'Bronze'), ('Is This A Jetpack?', 3, 'Silver');
 	
-select * from Trophies
+select * from Trophies;
 
-insert into Achievements (PlayerUsername, TrophyTitle, DateAchieved) values
+insert into Achievements (PlayerID, TrophyID, DateAchieved) values
 	(1, 2, '2021-04-05 18:23'), (1, 3, '2023-02-02 0:18'), (2, 1, '2015-06-13 10:25');
 	
 select * from Achievements;
@@ -57,3 +57,4 @@ select * from Achievements;
 insert into Users values ('edunova@edunova.hr', '$2a$15$9xMDthO5VOFWMfOD0EJGou7wqfpwyeg/.My2E.y4NcvTUESVydms2');
 
 select * from Users;
+

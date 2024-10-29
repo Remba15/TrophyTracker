@@ -73,18 +73,18 @@ export default function GamesView(){
     }
 
     function increasePage(){
-        showLoading();
+        //showLoading();
         setPages(page + 1);
-        hideLoading();
+        //hideLoading();
     }
 
     function decreasePage(){
-        showLoading();
+        //showLoading();
         if(page == 1){
             return;
         }
         setPages(page - 1);
-        hideLoading();
+        //hideLoading();
     }
 
 
@@ -101,7 +101,7 @@ export default function GamesView(){
                     onKeyUp={changeCondition}
                     />
                 </Col>
-                <Col key={2} sm={12} lg={4} md={4}>
+                {/* <Col key={2} sm={12} lg={4} md={4}>
                     {games && games.length > 0 &&(
                         <div style={{display: "flex", justifyContent: "center"}}>
                             <Pagination size="lg">
@@ -111,7 +111,7 @@ export default function GamesView(){
                             </Pagination>
                         </div>
                     )}
-                </Col>
+                </Col> */}
                 <Col key={3} sm={12} lg={4} md={4}>
                     <Link to={RouteNames.GAMES_ADD} className="btn btn-success wide">
                         <IoIosAdd

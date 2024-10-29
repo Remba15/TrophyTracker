@@ -22,7 +22,7 @@ namespace TrophyTracker.Controllers
             }
             try
             {
-                return Ok(_mapper.Map<List<AchievementDTORead>>(_context.Achievements.Include(p => p.Player)));
+                return Ok(_mapper.Map<List<AchievementDTORead>>(_context.Achievements.Include(p => p.Player).Include(p => p.Trophy)));
             }
             catch (Exception ex)
             {
