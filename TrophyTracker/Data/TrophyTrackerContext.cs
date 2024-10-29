@@ -15,6 +15,7 @@ namespace TrophyTracker.Data
         public DbSet<Game> Games { get; set; }
         public DbSet<Trophy> Trophies { get; set; }
         public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

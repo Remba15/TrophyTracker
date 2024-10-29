@@ -1,20 +1,17 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TrophyTracker.Data;
 
 namespace TrophyTracker.Controllers
 {
-    public class TrophyTrackerController : ControllerBase
+    [Authorize]
+    public abstract class TrophyTrackerController (TrophyTrackerContext context, IMapper mapper) : ControllerBase
     {
 
-        protected readonly TrophyTrackerContext _context;
+        protected readonly TrophyTrackerContext _context = context;
 
-        protected readonly IMapper _mapper;
+        protected readonly IMapper _mapper = mapper;
 
-        public TrophyTrackerController(TrophyTrackerContext context, IMapper mapper)
-        {
-            _context = context;
-            _mapper = mapper;
-        }
     }
 }
