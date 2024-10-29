@@ -6,6 +6,7 @@ import placeholder from '../../assets/placeholder.png';
 import { APP_URL, RouteNames } from "../../constants";
 import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import useLoading from "../../hooks/useLoading";
 
 
 export default function GamesView(){
@@ -13,11 +14,13 @@ export default function GamesView(){
     const[games, setGames] = useState();
     const[page, setPages] = useState(1);
     const[condition, setCondition] = useState('');
+    const { showLoading, hideLoading } = useLoading();
 
 
     async function fetchGames(){
-        
+        showLoading();
         const response = await GameService.getPages(page, condition);
+        hideLoading();
         if(response.error){
             alert(response.message);
 
@@ -37,7 +40,9 @@ export default function GamesView(){
 
 
     async function deleteAsync(id){
+        showLoading();
         const response = await GameService.remove(id);
+        hideLoading();
         if(response.error){
             alert(response.message)
             return
@@ -61,19 +66,25 @@ export default function GamesView(){
             console.log('Enter');
             setPages(1);
             setCondition(e.nativeEvent.srcElement.value);
+            showLoading();
             setGames([]);
+            hideLoading();
         }
     }
 
     function increasePage(){
+        showLoading();
         setPages(page + 1);
+        hideLoading();
     }
 
     function decreasePage(){
+        showLoading();
         if(page == 1){
             return;
         }
         setPages(page - 1);
+        hideLoading();
     }
 
 

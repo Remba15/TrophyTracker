@@ -4,6 +4,7 @@ import GameService from "../../services/GameService";
 import TrophyService from "../../services/TrophyService";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import useLoading from "../../hooks/useLoading";
 
 
 export default function TrophiesAdd(){
@@ -11,9 +12,12 @@ export default function TrophiesAdd(){
 
     const [games, setGames] = useState([]);
     const [gameID, setGameID] = useState(0);
+    const { showLoading, hideLoading } = useLoading();
 
     async function fetchGames(){
+        showLoading();
         const response = await GameService.get();
+        hideLoading();
         setGames(response);
         setGameID(response.message[0].id);
     }
@@ -25,7 +29,9 @@ export default function TrophiesAdd(){
 
 
     async function add(trophy){
+        showLoading();
         const response = await TrophyService.add(trophy);
+        hideLoading();
         if(response.error){
             alert(response.message);
             return;

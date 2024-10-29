@@ -5,6 +5,7 @@ import { Button, Image, Table } from "react-bootstrap";
 import moment from "moment";
 import PlayerService from "../../services/PlayerService";
 import placeholderPlayer from "../../assets/placeholderPlayer.png";
+import useLoading from "../../hooks/useLoading";
 
 
 
@@ -13,9 +14,12 @@ export default function PlayersView(){
     const[players, setPlayers] = useState();
 
     const navigate = useNavigate();
+    const { showLoading, hideLoading } = useLoading();
 
     async function getPlayers(){
+        showLoading();
         const response = await PlayerService.get();
+        hideLoading();
         if(response.error){
             alert(response.message)
             return
@@ -38,7 +42,9 @@ export default function PlayersView(){
     }
 
     async function deletePlayer(id){
+        showLoading();
         const response = await PlayerService.remove(id);
+        hideLoading();
         if(response.error){
             alert(response.message)
             return

@@ -3,13 +3,17 @@ import PlayerService from "../../services/PlayerService";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import moment from "moment";
+import useLoading from "../../hooks/useLoading";
 
 
 export default function PlayersAdd(){
     const navigate = useNavigate()
+    const { showLoading, hideLoading } = useLoading();
 
     async function addPlayer(player){
+        showLoading();
         const response = await PlayerService.add(player)
+        hideLoading();
         if(response.error){
             alert(response.message)
             return;

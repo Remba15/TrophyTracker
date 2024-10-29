@@ -2,13 +2,17 @@ import {Link, useNavigate } from "react-router-dom";
 import GameService from "../../services/GameService";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import useLoading from "../../hooks/useLoading.js";
 
 
 export default function GamesAdd(){
     const navigate = useNavigate();
+    const { showLoading, hideLoading } = useLoading();
 
     async function add(e){
+        showLoading();
         const response = await GameService.add(e);
+        hideLoading();
         if(response.error){
             alert(response.message);
             return;

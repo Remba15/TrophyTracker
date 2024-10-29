@@ -4,6 +4,7 @@ import GameService from "../../services/GameService";
 import TrophyService from "../../services/TrophyService";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import useLoading from "../../hooks/useLoading";
 
 
 export default function TrophiesUpdate(){
@@ -14,15 +15,20 @@ export default function TrophiesUpdate(){
     const [gameID, setGameID] = useState(0);
 
     const [trophy, setTrophy] = useState({});
+    const { showLoading, hideLoading } = useLoading();
 
     async function fetchGames(){
+        showLoading();
         const response = await GameService.get();
+        hideLoading();
         console.log(response)
         setGames(response)
     }
 
     async function fetchTrophies(){
+        showLoading();
         const response = await TrophyService.getById(routeParams.id)
+        hideLoading();
         if(response.error){
             alert(response.message);
             return;
@@ -42,7 +48,9 @@ export default function TrophiesUpdate(){
     }, []);
 
     async function update(e){
+        showLoading();
         const response = await TrophyService.update(routeParams.id,e);
+        hideLoading();
         if(response.error){
             alert(response.message);
             return;

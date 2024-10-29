@@ -3,23 +3,30 @@ import { Link, useNavigate } from "react-router-dom";
 import TrophyService from "../../services/TrophyService";
 import { RouteNames } from "../../constants";
 import { Button, Table } from "react-bootstrap";
+import useLoading from "../../hooks/useLoading";
 
 
 export default function TrophiesView(){
 
     const [trophy, setTrophy] = useState();
+    const { showLoading, hideLoading } = useLoading();
+
     let navigate = useNavigate();
 
     async function fetchTrophies(){
+        showLoading()
         await TrophyService.get()
         .then((response)=>{
             setTrophy(response);
         })
         .catch((e)=>{console.log(e)});
+        hideLoading();
     }
 
     async function removeTrophy(id){
+        showLoading();
         const response = await TrophyService.remove(id);
+        hideLoading();
         if(response.error){
             alert(response.message);
             return;
@@ -62,7 +69,7 @@ export default function TrophiesView(){
                                 &nbsp;&nbsp;&nbsp;
                                 <Button
                                 variant="danger"
-                                onClick={()=>remove(e.id)}>
+                                onClick={()=>removeTrophy(e.id)}>
                                     Delete
                                 </Button>
 

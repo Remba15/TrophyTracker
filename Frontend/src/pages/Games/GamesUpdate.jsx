@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import GameService from "../../services/GameService";
 import { RouteNames } from "../../constants";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import useLoading from "../../hooks/useLoading";
 
 
 
@@ -11,10 +12,13 @@ export default function GamesUpdate(){
     const navigate = useNavigate();
     const routeParams = useParams();
     const [game, setGame] = useState({});
+    const { showLoading, hideLoading } = useLoading();
 
 
     async function fetchGame(){
+        showLoading();
         const response = await GameService.getById(routeParams.id);
+        hideLoading();
         if(response.error){
             alert(response.message);
             return;
@@ -27,7 +31,9 @@ export default function GamesUpdate(){
     },[]);
 
     async function update(e){
+        showLoading();
         const response = await GameService.update(routeParams.id,e);
+        hideLoading();
         if(response.error){
             alert(response.message);
             return;
