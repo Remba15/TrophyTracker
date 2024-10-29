@@ -2,9 +2,9 @@
 {
     public record AchievementDTORead(
         int ID,
-        string PlayerUsername,
-        string TrophyTitle,
-        DateTime DateAchieved
+        string? PlayerUsername,
+        string? TrophyTitle,
+        DateTime? DateAchieved
         );
     
 }

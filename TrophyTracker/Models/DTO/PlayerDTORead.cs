@@ -2,8 +2,9 @@
 {
     public record PlayerDTORead(
         int Id,
-        string Username,
+        string? Username,
         DateTime? RegistrationDate,
-        string? Region
+        string? Region,
+        string? Image
         );
 }

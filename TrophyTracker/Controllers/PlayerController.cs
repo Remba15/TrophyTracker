@@ -149,5 +149,43 @@ namespace TrophyTracker.Controllers
             }
 
         }
+
+        [HttpPut]
+        [Route("setImage/{id:int}")]
+        public IActionResult setImage(int id, ImageDTO image)
+        {
+            if (id <= 0)
+            {
+                return BadRequest("Id must be greater than 0.");
+            }
+            if(image.Base64 == null || image.Base64?.Length == 0)
+            {
+                return BadRequest("Image is not set.");
+            }
+            var player = _context.Players.Find(id);
+            if(player == null)
+            {
+                return BadRequest("Player with id " + id + " does not exist");
+            }
+            try
+            {
+                var ds = Path.DirectorySeparatorChar;
+                string dir = Path.Combine(Directory.GetCurrentDirectory()
+                    + ds + "wwwroot" + ds + "images" + ds + "players");
+
+                if(!System.IO.Directory.Exists(dir))
+                {
+                    System.IO.Directory.CreateDirectory(dir);
+                }
+                var path = Path.Combine(dir + ds + id + ".png");
+                System.IO.File.WriteAllBytes(path, Convert.FromBase64String(image.Base64!));
+
+                return Ok("Successfully saved image");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

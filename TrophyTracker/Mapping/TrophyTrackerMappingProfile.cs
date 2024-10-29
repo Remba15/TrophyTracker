@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Runtime.CompilerServices;
 using TrophyTracker.Models;
 using TrophyTracker.Models.DTO;
 
@@ -10,7 +11,16 @@ namespace TrophyTracker.Mapping
         public TrophyTrackerMappingProfile()
         {
             #region Player Mapping
-            CreateMap<Player, PlayerDTORead>();
+            CreateMap<Player, PlayerDTORead>()
+                .ConstructUsing(entity =>
+                    new PlayerDTORead(
+                        entity.ID,
+                        entity.Username,
+                        entity.RegistrationDate,
+                        entity.Region,
+                        filePath(entity)
+                        )
+                );
             CreateMap<PlayerDTOInsertUpdate, Player>();
             #endregion
 
@@ -43,5 +53,21 @@ namespace TrophyTracker.Mapping
 
         }
 
+        private string? filePath(Player entity)
+        {
+
+            try
+            {
+                var ds = Path.DirectorySeparatorChar;
+                string image = Path.Combine(Directory.GetCurrentDirectory()
+                    + ds + "wwwroot" + ds + "images" + ds + "players" + ds + entity.ID + ".png");
+                return File.Exists(image) ? "/images/players/" + entity.ID + ".png" : null;
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
     }
 }
