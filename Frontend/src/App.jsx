@@ -15,6 +15,8 @@ import TrophiesView from './pages/Trophies/TrophiesView';
 import TrophiesAdd from './pages/Trophies/TrophiesAdd';
 import TrophiesUpdate from './pages/Trophies/TrophiesUpdate';
 import LoadingSpinner from './components/LoadingSpinner';
+import AchievementsView from './pages/Achievements/AchievementsView';
+import AchievementsAdd from './pages/Achievements/AchievementsAdd';
 
 
 function App() {
@@ -39,6 +41,9 @@ function App() {
           <Route path={RouteNames.TROPHIES_VIEW} element={<TrophiesView/>}/>
           <Route path={RouteNames.TROPHIES_ADD} element={<TrophiesAdd/>}/>
           <Route path={RouteNames.TROPHIES_UPDATE} element={<TrophiesUpdate/>}/>
+
+          <Route path={RouteNames.ACHIEVEMENTS_VIEW} element={<AchievementsView/>}/>
+          <Route path={RouteNames.ACHIEVEMENTS_ADD} element={<AchievementsAdd/>}/>
 
         </Routes>
     </Container>
