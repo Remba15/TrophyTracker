@@ -97,7 +97,7 @@ export default function PlayersUpdate(){
             {Base64: base64.replace('data:image/png;base64,', '')});
         hideLoading();
         if(response.error){
-            alert(response.data);
+            alert(response.message);
         }
         setCurrentImage(imageForServer);
     }

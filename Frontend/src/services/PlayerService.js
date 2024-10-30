@@ -70,7 +70,7 @@ async function update(id, player){
 }
 
 async function setImage(id, image){
-    return await HttpService.put('/Player/setImage' + id, image)
+    return await HttpService.put('/Player/setImage/' + id, image)
     .then((response)=>{return {error: false, message: response.data};})
     .catch((e)=>{return {error: true, message: 'Error while setting player image'};});
 }

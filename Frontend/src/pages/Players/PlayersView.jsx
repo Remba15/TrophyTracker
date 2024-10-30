@@ -80,6 +80,43 @@ export default function PlayersView(){
                     </tr>
                 </thead>
                 <tbody>
+                    {players && players.map((player, index) => (
+                        <tr key={index}>
+                            <td style={{textAlign: "center"}}>
+                                <Image src={image(player)}
+                                alt="Player image"
+                                style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
+                                />
+                            </td>
+                            <td className={player.username == null ? 'middle' : 'right'}>
+                                {player.username == null ? 'Not defined' : player.username}
+                            </td>
+                            <td className={player.registrationDate == null ? 'middle' : 'right'}>
+                                {formatDate(player.registrationDate)}
+                            </td>
+                            <td className={player.region == null ? 'middle' : 'right'}>
+                                {player.region == null ? 'Not defined' : player.region}
+                            </td>
+                            <td className="right">
+                                <Button
+                                    className="action_buttons"
+                                    variant="info"
+                                    onClick={() => navigate(`/Players/${player.id}`)}
+                                >
+                                    Update
+                                </Button>
+                                <Button
+                                    className="action_buttons"
+                                    variant="danger"
+                                    onClick={() => deleteRow(player.id)}
+                                >
+                                    Delete
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+                {/* <tbody>
                     {players && players.map((player, index)=>(
                         <tr key={index}>
                             <td>
@@ -113,7 +150,7 @@ export default function PlayersView(){
                             </td>
                         </tr>
                     ))}
-                </tbody>
+                </tbody> */}
             </Table>
         </>
     )
