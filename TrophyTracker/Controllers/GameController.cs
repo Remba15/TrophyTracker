@@ -184,6 +184,7 @@ namespace TrophyTracker.Controllers
         }
 
 
+        
         [HttpGet]
         [Route("searchPaging/{page}")]
         public IActionResult searchGamePaging(int page, string condition = "")
@@ -192,15 +193,21 @@ namespace TrophyTracker.Controllers
             condition = condition.ToLower();
             try
             {
-                IEnumerable<Game> query = _context.Games.Skip((perPage * page) - perPage);
+                // Start with the full query on the games table
+                IEnumerable<Game> query = _context.Games;
 
+                // Apply search conditions
                 var sequence = condition.Split(" ");
-                foreach(var s in condition.Split(" "))
+                foreach (var s in sequence)
                 {
                     query = query.Where(p => p.Title.ToLower().Contains(s) || p.Developer.ToLower().Contains(s));
                 }
-                query.Skip((perPage * page) - perPage)
-                    .OrderBy(p => p.Title);
+
+                // Apply sorting, then skip and take for pagination
+                query = query
+                    .OrderBy(p => p.Title)
+                    .Skip((page - 1) * perPage)
+                    .Take(perPage);
 
                 var games = query.ToList();
 
