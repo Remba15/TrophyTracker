@@ -17,7 +17,7 @@ export default function GamesView(){
     const[condition, setCondition] = useState('');
     const { showLoading, hideLoading } = useLoading();
 
-    //const RAWG_API_KEY = "0ae46e984a574093a554c19b0af382f5"
+    const RAWG_API_KEY = "0ae46e984a574093a554c19b0af382f5"
 
 
     async function fetchGames(){
