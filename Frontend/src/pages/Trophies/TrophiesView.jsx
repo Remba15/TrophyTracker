@@ -33,6 +33,7 @@ export default function TrophiesView(){
         }
         fetchTrophies();
     }
+    
 
     useEffect(()=>{
         fetchTrophies();

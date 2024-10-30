@@ -74,11 +74,11 @@ namespace TrophyTracker.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
-            if (player != null)
+            if (player == null)
             {
                 return NotFound(new { message = "Player not found in database!" });
             }
-            if (trophy != null)
+            if (trophy == null)
             {
                 return NotFound(new { message = "Trophy not found in database!" });
             }

@@ -15,7 +15,9 @@ export default function NavBar(){
     
     return (
         <>
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg"
+        className="bg-body-tertiary"
+        >
             <Navbar.Brand className='hand'
             onClick={()=>navigate(RouteNames.HOME)}
             >Trophy Tracker</Navbar.Brand>
@@ -34,6 +36,10 @@ export default function NavBar(){
 
                     <NavDropdown.Item onClick={()=>navigate(RouteNames.TROPHIES_VIEW)}>
                     Trophies
+                    </NavDropdown.Item>
+
+                    <NavDropdown.Item onClick={()=>navigate(RouteNames.ACHIEVEMENTS_VIEW)}>
+                    Achievements
                     </NavDropdown.Item>
 
                 </NavDropdown>

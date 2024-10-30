@@ -15,9 +15,7 @@ export default function TrophiesAdd(){
     const { showLoading, hideLoading } = useLoading();
 
     async function fetchGames(){
-        showLoading();
         const response = await GameService.get();
-        hideLoading();
         setGames(response);
         setGameID(response.message[0].id);
     }

@@ -11,8 +11,11 @@ export const RouteNames = {
 
     TROPHIES_VIEW: '/Trophies',
     TROPHIES_ADD: '/Trophies/Add',
-    TROPHIES_UPDATE: '/Trophies/:id'
+    TROPHIES_UPDATE: '/Trophies/:id',
 
+    ACHIEVEMENTS_VIEW: '/Achievements',
+    ACHIEVEMENTS_ADD: '/Achievements/Add'
+    
 
 }
 

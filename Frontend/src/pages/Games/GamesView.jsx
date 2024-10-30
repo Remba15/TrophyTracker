@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import GameService from "../../services/GameService";
 import { Button, Card, Col, Form, Pagination, Row } from "react-bootstrap";
 import placeholder from '../../assets/placeholder.png';
-import { APP_URL, RouteNames } from "../../constants";
+import { RouteNames } from "../../constants";
 import { IoIosAdd } from "react-icons/io";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaTrophy } from "react-icons/fa";
 import useLoading from "../../hooks/useLoading";
 import axios from "axios";
 
@@ -17,7 +17,7 @@ export default function GamesView(){
     const[condition, setCondition] = useState('');
     const { showLoading, hideLoading } = useLoading();
 
-    const RAWG_API_KEY = "0ae46e984a574093a554c19b0af382f5"
+    //const RAWG_API_KEY = "0ae46e984a574093a554c19b0af382f5"
 
 
     async function fetchGames(){
@@ -33,7 +33,7 @@ export default function GamesView(){
             setPages(page-1);
             return;
         }
-        //dodatak
+
         var fetchedGames = response.message;
         setGames(fetchedGames);
 
@@ -92,12 +92,6 @@ export default function GamesView(){
         return game.imageUrl || placeholder;
     }
 
-    // function image(game){
-    //     if(game.image!=null){
-    //         return APP_URL + game.image + `?${Date.now()}`;
-    //     }
-    //     return placeholder;
-    // }
 
     function changeCondition(e){
         if(e.nativeEvent.key == "Enter"){
@@ -153,13 +147,16 @@ export default function GamesView(){
                 {games && games.map((p) => (
                     <Col key={p.id} sm={4} lg={3} md={3}>
                         <Card style={{ marginTop: '1rem' }}>
-                            <Card.Img variant="top" src={image(p)} className="image" />
+                            <Card.Img variant="top" src={image(p)} className="image"/>
                             <Card.Body>
                                 <Card.Title>{p.title}</Card.Title>
                                 <Card.Text>
                                     {p.developer}
                                 </Card.Text>
                                 <Row>
+                                <Col>
+                                        <Link className="btn btn-success" to={`/Trophies`}><FaTrophy /></Link>
+                                    </Col>
                                     <Col>
                                         <Link className="btn btn-primary" to={`/Games/${p.id}`}><FaEdit /></Link>
                                     </Col>
@@ -172,29 +169,7 @@ export default function GamesView(){
                     </Col>
                 ))}
             </Row>
-            {/* <Row>
-                { games && games.map((p) => (
-                    <Col key={p.id} sm={4} lg={3} md={3}>
-                        <Card style={{marginTop: '1rem'}}>
-                            <Card.Img variant="top" src={image(p)} className="image"/>
-                            <Card.Body>
-                                <Card.Title>{p.title}</Card.Title>
-                                <Card.Text>
-                                    {p.developer}
-                                </Card.Text>
-                                <Row>
-                                    <Col>
-                                        <Link className="btn btn-primary" to={`/Games/${p.id}`}><FaEdit/></Link>
-                                    </Col>
-                                    <Col>
-                                    <Button variant="danger" onClick={() => remove(p.id)}><FaTrash/></Button>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row> */}
+            
             <hr />
             <Row>
                 <Col key={1} sm={12} lg={4} md={4}>
