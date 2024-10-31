@@ -42,7 +42,6 @@ export function AuthProvider({ children }) {
       localStorage.setItem('Bearer', '');
       setAuthToken('');
       setIsLoggedIn(false);
-      //navigate(RouteNames.HOME);
     }
   }
 

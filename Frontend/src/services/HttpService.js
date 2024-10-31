@@ -22,8 +22,7 @@ HttpService.interceptors.request.use((config) => {
         localStorage.setItem('Bearer', '');
         window.location.href = '/';
       }
-      //Bez ovoga "Promise.reject..." -> "catch" u ni jednom servisu neće hvatati nikakav error,
-      //uvijek će se trigerati samo "then" jer se ovdje uhvati error koji dođe s api-a
+      
       return Promise.reject(error);
     }
   );

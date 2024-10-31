@@ -17,7 +17,7 @@ export default function GamesView(){
     const[condition, setCondition] = useState('');
     const { showLoading, hideLoading } = useLoading();
 
-    const RAWG_API_KEY = "0ae46e984a574093a554c19b0af382f5"
+    //const RAWG_API_KEY = "0ae46e984a574093a554c19b0af382f5"
 
 
     async function fetchGames(){
@@ -120,41 +120,38 @@ export default function GamesView(){
     }
 
 
-    return(
+    return (
         <>
-            <Row>
-                <Col key={1} sm={12} lg={4} md={4}>
+            {/* Row for Search and Add Game Button */}
+            <Row className="align-items-center mb-4">
+                <Col sm={8} md={8} lg={8}>
                     <Form.Control
-                    type='text'
-                    name='search'
-                    placeholder="Game title or developer [Enter]"
-                    maxLength={255}
-                    defaultValue=''
-                    onKeyUp={changeCondition}
+                        type="text"
+                        name="search"
+                        placeholder="Game title or developer [Enter]"
+                        maxLength={255}
+                        defaultValue=""
+                        onKeyUp={changeCondition}
                     />
                 </Col>
-                <Col key={3} sm={12} lg={4} md={4}>
+                <Col sm={4} md={4} lg={4} className="text-end">
                     <Link to={RouteNames.GAMES_ADD} className="btn btn-success wide">
-                        <IoIosAdd
-                        size={25}
-                        /> Add Game
+                        <IoIosAdd size={25} /> Add Game
                     </Link>
                 </Col>
             </Row>
-
-
+    
+            {/* Row for Displaying Games */}
             <Row>
                 {games && games.map((p) => (
-                    <Col key={p.id} sm={4} lg={3} md={3}>
+                    <Col key={p.id} sm={6} md={4} lg={3}>
                         <Card style={{ marginTop: '1rem' }}>
-                            <Card.Img variant="top" src={image(p)} className="image"/>
+                            <Card.Img variant="top" src={image(p)} className="image" />
                             <Card.Body>
                                 <Card.Title>{p.title}</Card.Title>
-                                <Card.Text>
-                                    {p.developer}
-                                </Card.Text>
+                                <Card.Text>{p.developer}</Card.Text>
                                 <Row>
-                                <Col>
+                                    <Col>
                                         <Link className="btn btn-success" to={`/Trophies`}><FaTrophy /></Link>
                                     </Col>
                                     <Col>
@@ -169,23 +166,88 @@ export default function GamesView(){
                     </Col>
                 ))}
             </Row>
-            
-            <hr />
-            <Row>
-                <Col key={1} sm={12} lg={4} md={4}>
+    
+            {/* Pagination Centered Below Games */}
+            <Row className="justify-content-center mt-4">
+                <Col xs="auto">
                     {games && games.length > 0 && (
-                        <div style={{display: "flex", justifyContent: "center"}}>
-                            <Pagination size="lg">
-                                <Pagination.Prev onClick={decreasePage} />
-                                <Pagination.Item disabled>{page}</Pagination.Item>
-                                <Pagination.Next onClick={increasePage}/>
-                            </Pagination>
-                        </div>
+                        <Pagination size="lg">
+                            <Pagination.Prev onClick={decreasePage} />
+                            <Pagination.Item disabled>{page}</Pagination.Item>
+                            <Pagination.Next onClick={increasePage} />
+                        </Pagination>
                     )}
                 </Col>
             </Row>
         </>
-    )
+    );
+
+    // return(
+    //     <>
+    //         <Row>
+    //             <Col key={1} sm={12} lg={4} md={4}>
+    //                 <Form.Control
+    //                 type='text'
+    //                 name='search'
+    //                 placeholder="Game title or developer [Enter]"
+    //                 maxLength={255}
+    //                 defaultValue=''
+    //                 onKeyUp={changeCondition}
+    //                 />
+    //             </Col>
+    //             <Col key={3} sm={12} lg={4} md={4}>
+    //                 <Link to={RouteNames.GAMES_ADD} className="btn btn-success wide">
+    //                     <IoIosAdd
+    //                     size={25}
+    //                     /> Add Game
+    //                 </Link>
+    //             </Col>
+    //         </Row>
+
+
+    //         <Row>
+    //             {games && games.map((p) => (
+    //                 <Col key={p.id} sm={4} lg={3} md={3}>
+    //                     <Card style={{ marginTop: '1rem' }}>
+    //                         <Card.Img variant="top" src={image(p)} className="image"/>
+    //                         <Card.Body>
+    //                             <Card.Title>{p.title}</Card.Title>
+    //                             <Card.Text>
+    //                                 {p.developer}
+    //                             </Card.Text>
+    //                             <Row>   
+    //                             <Col>
+    //                                     <Link className="btn btn-success" to={`/Trophies`}><FaTrophy /></Link>
+    //                                 </Col>
+    //                                 <Col>
+    //                                     <Link className="btn btn-primary" to={`/Games/${p.id}`}><FaEdit /></Link>
+    //                                 </Col>
+    //                                 <Col>
+    //                                     <Button variant="danger" onClick={() => remove(p.id)}><FaTrash /></Button>
+    //                                 </Col>
+    //                             </Row>
+    //                         </Card.Body>
+    //                     </Card>
+    //                 </Col>
+    //             ))}
+    //         </Row>
+            
+    //         <hr />
+    //         <Row>
+    //             <Col key={1} sm={12} lg={4} md={4}>
+    //                 {games && games.length > 0 && (
+    //                     <div style={{display: "flex", justifyContent: "center"}}>
+    //                         <Pagination size="lg">
+    //                             <Pagination.Prev onClick={decreasePage} />
+    //                             <Pagination.Item disabled>{page}</Pagination.Item>
+    //                             <Pagination.Next onClick={increasePage}/>
+    //                         </Pagination>
+    //                     </div>
+    //                 )}
+    //             </Col>
+    //         </Row>
+    //     </>
+    // )
 
 
 }

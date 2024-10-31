@@ -65,10 +65,9 @@ export default function PlayersView(){
 
 
 
-    return(
+    return (
         <>
-            <Link to={RouteNames.PLAYERS_ADD}
-            className="btn btn-success wide">Add new player</Link>
+            <Link to={RouteNames.PLAYERS_ADD} className="btn btn-success wide">Add new player</Link>
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
@@ -82,24 +81,25 @@ export default function PlayersView(){
                 <tbody>
                     {players && players.map((player, index) => (
                         <tr key={index}>
-                            <td style={{textAlign: "center"}}>
-                                <Image src={image(player)}
-                                alt="Player image"
-                                style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
+                            <td style={{ textAlign: "center" }}>
+                                <Image 
+                                    src={image(player)}
+                                    alt="Player image"
+                                    style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
                                 />
                             </td>
-                            <td className={player.username == null ? 'middle' : 'right'}>
+                            <td style={{ textAlign: "center" }} className={player.username == null ? 'text-muted' : ''}>
                                 {player.username == null ? 'Not defined' : player.username}
                             </td>
-                            <td className={player.registrationDate == null ? 'middle' : 'right'}>
-                                {formatDate(player.registrationDate)}
+                            <td style={{ textAlign: "center" }} className={player.registrationDate == null ? 'text-muted' : ''}>
+                                {player.registrationDate ? formatDate(player.registrationDate) : 'Not defined'}
                             </td>
-                            <td className={player.region == null ? 'middle' : 'right'}>
+                            <td style={{ textAlign: "center" }} className={player.region == null ? 'text-muted' : ''}>
                                 {player.region == null ? 'Not defined' : player.region}
                             </td>
-                            <td className="right">
+                            <td style={{ textAlign: "center" }}>
                                 <Button
-                                    className="action_buttons"
+                                    className="action_buttons me-2"
                                     variant="info"
                                     onClick={() => navigate(`/Players/${player.id}`)}
                                 >
@@ -116,43 +116,8 @@ export default function PlayersView(){
                         </tr>
                     ))}
                 </tbody>
-                {/* <tbody>
-                    {players && players.map((player, index)=>(
-                        <tr key={index}>
-                            <td>
-                                <Image src={image} />
-                            </td>
-                            <td className={player.username==null ? 'middle' : 'right'}>
-                                {player.username==null ? 'Not defined' : player.username}
-                            </td>
-                            <td className={player.registrationDate==null ? 'middle' : 'right'}>
-                                {formatDate(player.registrationDate)}
-                            </td>
-                            <td className={player.region==null ? 'middle' : 'right'}>
-                                {player.region==null ? 'Not defined' : player.region}
-                            </td>
-                            <td className="right">
-
-                                <Button
-                                className="action_buttons"
-                                variant="info"
-                                onClick={()=>navigate(`/Players/${player.id}`)}
-                                >
-                                    Update
-                                </Button>
-
-                                <Button
-                                className="action_buttons"
-                                variant="danger"
-                                onClick={()=>deleteRow(player.id)}>
-                                    Delete
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody> */}
             </Table>
         </>
-    )
+    );
 
 }
